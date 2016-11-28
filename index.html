@@ -1,0 +1,48 @@
+<!DOCTYPE html class="uk-height-1-1">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Live App</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/css/uikit.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/js/uikit.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.3/vue.min.js"></script>
+        <script src="app.js"></script>
+        <link rel="stylesheet" href="app.css">
+    </head>
+    <body class="uk-height-1-1">
+        <div id="app" class="uk-vertical-align uk-height-1-1">
+            <div class="uk-vertical-align-middle uk-width-1-1">
+                <div v-if="ready" class="uk-panel uk-text-center">
+                    <div v-if="video_id" class="uk-grid uk-grid-width-1-2">
+                        <div v-for="(reaction, type) in reactions">
+                            <img :src="'reactions/'+type+'.gif'">
+                            <h1 class="count" v-text="reaction.count"></h1>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <div v-if="stream_key">
+                            <label>
+                                Stream Key:
+                                <input class="uk-width-1-1 uk-form-large" v-model="stream_key">
+                            </label>
+                        </div>
+                        <div v-if="access_token">
+                            <button @click="start" class="uk-button uk-button-large">
+                                Start
+                            </button>
+                        </div>
+                        <div v-if="!access_token">
+                            <button @click="login" class="uk-button uk-button-large">
+                                Login First
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-text-center" v-else>
+                    Loading...
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
